@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from 'axios'
+import baseUrl from '../utils/baseUrl'
 
 import { Form, Image, Message, Header, Icon } from 'semantic-ui-react'
 
@@ -22,12 +24,28 @@ const  CreateProduct = () => {
     } else {
       setProduct(prevState => ({ ...prevState, [name]: value }))
     }
-    // console.log(product)
   }
 
-  const handleSubmit = (event) => {
+  const handleImageUpload = async () => {
+    const data = new FormData()
+    data.append('file', product.media)
+    data.append('upload_preset', 'mizzuri')
+    data.append('cloud_name', 'thezeez')
+    const response = await axios.post(process.env.CLOUDINARY_URL, data)
+    const mediaUrl = response.data.url
+    return mediaUrl
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(product)
+    const mediaUrl = await handleImageUpload()
+    console.log({ mediaUrl })
+    // const url = `${baseUrl}/api/product`
+    // // const payload = { ...product, mediaUrl}
+    // // another way ...
+    // const { name, price, description } = product
+    // const payload = { name, price, description, mediaUrl}
+    // axios.post(url, payload)
     setProduct(INITIAL_PRODUCT)
     setSuccess(true)
   }
