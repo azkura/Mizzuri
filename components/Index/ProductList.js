@@ -13,7 +13,10 @@ function ProductList({ products }) {
     }))
   }
 
-  return <Card.Group stackable itemsPerRow="3" centered items={mapProductsToItems(products)}/>;
+  return <Card.Group 
+  stackable itemsPerRow="3" 
+  centered 
+  items={mapProductsToItems(products)}/>;
 }
 
 export default ProductList;
