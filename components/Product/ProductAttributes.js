@@ -13,7 +13,7 @@ function ProductAttributes({ description, _id }) {
     const url = `${baseUrl}/api/product`
     const payload = { params: { _id } }
     await axios.delete(url, payload)
-    router.push('./')
+    router.push("/")
   }
 
   return <>
