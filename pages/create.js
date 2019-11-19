@@ -15,6 +15,7 @@ const  CreateProduct = () => {
   const [product, setProduct] = React.useState(INITIAL_PRODUCT)
   const [mediaPreview, setMediaPreview] = React.useState('')
   const [success, setSuccess] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
 
   const handleChange = (event) => {
     const {name, value, files} = event.target
@@ -38,14 +39,16 @@ const  CreateProduct = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    setLoading(true)
     const mediaUrl = await handleImageUpload()
     console.log({ mediaUrl })
-    // const url = `${baseUrl}/api/product`
-    // // const payload = { ...product, mediaUrl}
-    // // another way ...
-    // const { name, price, description } = product
-    // const payload = { name, price, description, mediaUrl}
-    // axios.post(url, payload)
+    const url = `${baseUrl}/api/product`
+    // const payload = { ...product, mediaUrl} or =>
+    const { name, price, description } = product
+    const payload = { name, price, description, mediaUrl}
+    const response = await axios.post(url, payload)
+    console.log(response)
+    setLoading(false)
     setProduct(INITIAL_PRODUCT)
     setSuccess(true)
   }
@@ -56,7 +59,7 @@ const  CreateProduct = () => {
         <Icon name="add" color="orange" />
         Create new Product
       </Header>
-      <Form success={success} onSubmit={handleSubmit}>
+      <Form loading={loading} success={success} onSubmit={handleSubmit}>
         <Message icon success>
           <Icon name='check' />
           <Message.Content>
@@ -101,7 +104,7 @@ const  CreateProduct = () => {
           type="text"
           onChange={handleChange}
         />
-        <Form.Button type="submit" color="blue">Submit</Form.Button>
+        <Form.Button disabled={loading} type="submit" color="blue">Submit</Form.Button>
       </Form>
     </>
   )
