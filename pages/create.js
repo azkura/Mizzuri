@@ -16,6 +16,12 @@ const  CreateProduct = () => {
   const [mediaPreview, setMediaPreview] = React.useState('')
   const [success, setSuccess] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
+  const [disabled, setDisabled] = React.useState(true)
+
+  React.useEffect(() => {
+    const isProduct = Object.values(product).every(el => Boolean(el))
+    isProduct ? setDisabled(false) : setDisabled(true)
+  }, [product])
 
   const handleChange = (event) => {
     const {name, value, files} = event.target
@@ -104,7 +110,11 @@ const  CreateProduct = () => {
           type="text"
           onChange={handleChange}
         />
-        <Form.Button disabled={loading} type="submit" color="blue">Submit</Form.Button>
+        <Form.Button 
+          disabled={disabled || loading} 
+          type="submit" color="blue">
+          Submit
+        </Form.Button>
       </Form>
     </>
   )
