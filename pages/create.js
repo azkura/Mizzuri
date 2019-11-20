@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
+import { catchErrors } from '../utils/catchErrors'
 
 import { Form, Image, Message, Header, Icon } from 'semantic-ui-react'
 
@@ -17,6 +18,7 @@ const  CreateProduct = () => {
   const [success, setSuccess] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [disabled, setDisabled] = React.useState(true)
+  const [error, setError] = React.useState('')
 
   React.useEffect(() => {
     const isProduct = Object.values(product).every(el => Boolean(el))
@@ -44,19 +46,26 @@ const  CreateProduct = () => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    setLoading(true)
-    const mediaUrl = await handleImageUpload()
-    console.log({ mediaUrl })
-    const url = `${baseUrl}/api/product`
-    // const payload = { ...product, mediaUrl} or =>
-    const { name, price, description } = product
-    const payload = { name, price, description, mediaUrl}
-    const response = await axios.post(url, payload)
-    console.log(response)
-    setLoading(false)
-    setProduct(INITIAL_PRODUCT)
-    setSuccess(true)
+    try {
+      event.preventDefault()
+      setLoading(true)
+      const mediaUrl = await handleImageUpload()
+      console.log({ mediaUrl })
+      const url = `${baseUrl}/api/product`
+      // const payload = { ...product, mediaUrl} or =>
+      const { name, price, description } = product
+      const payload = { name: "", price, description, mediaUrl}
+      const response = await axios.post(url, payload)
+      console.log(response)
+      setLoading(false)
+      setProduct(INITIAL_PRODUCT)
+      setSuccess(true)
+
+    } catch (error) {
+      catchErrors(error, setError)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -65,7 +74,13 @@ const  CreateProduct = () => {
         <Icon name="add" color="orange" />
         Create new Product
       </Header>
-      <Form loading={loading} success={success} onSubmit={handleSubmit}>
+      <Form loading={loading} error={Boolean(error)} success={success} onSubmit={handleSubmit}>
+        <Message icon error>
+          <Message.Content>
+            <Message.Header>Oops!</Message.Header>
+            { error }
+          </Message.Content>
+        </Message>
         <Message icon success>
           <Icon name='check' />
           <Message.Content>
