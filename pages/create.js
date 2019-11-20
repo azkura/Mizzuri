@@ -54,7 +54,7 @@ const  CreateProduct = () => {
       const url = `${baseUrl}/api/product`
       // const payload = { ...product, mediaUrl} or =>
       const { name, price, description } = product
-      const payload = { name: "", price, description, mediaUrl}
+      const payload = { name, price, description, mediaUrl}
       const response = await axios.post(url, payload)
       console.log(response)
       setLoading(false)
