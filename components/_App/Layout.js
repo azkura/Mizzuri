@@ -3,6 +3,7 @@ import { Container } from "semantic-ui-react";
 
 import Header from "./Header";
 import HeadContent from "./HeadContent";
+import Footer from './Footer'
 
 function Layout({ children }) {
   return (
@@ -22,6 +23,7 @@ function Layout({ children }) {
       <Container text style={{ paddingTop: "1em" }}>
         {children}
       </Container>
+      <Footer />
     </>
   );
 }
