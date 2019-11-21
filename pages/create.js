@@ -49,10 +49,9 @@ const  CreateProduct = () => {
     try {
       event.preventDefault()
       setLoading(true)
+      setError('')
       const mediaUrl = await handleImageUpload()
-      console.log({ mediaUrl })
       const url = `${baseUrl}/api/product`
-      // const payload = { ...product, mediaUrl} or =>
       const { name, price, description } = product
       const payload = { name, price, description, mediaUrl}
       const response = await axios.post(url, payload)

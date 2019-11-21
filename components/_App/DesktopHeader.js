@@ -59,6 +59,16 @@ const DesktopContainer = ({ children }) => {
             <Link href="/cart">
               <Menu.Item active={isActive('/cart')}>Cart</Menu.Item>
             </Link>
+            <Menu.Item position='right' active={isActive('/logout')}>
+              <Button 
+                href="/signup" 
+                inverted={fixed} 
+                primary={fixed} 
+                style={{ marginLeft: '0.5em' }}
+              >
+                Sign up
+              </Button>
+              </Menu.Item>
 
             { user && (<Link href="/create">
               <Menu.Item active={isActive('/create')}>Create</Menu.Item>
