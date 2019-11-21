@@ -23,7 +23,7 @@ export default async (req, res) => {
     }).save()
     console.log(newUser)
     // 4) create a token for the new user
-    jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
     expiresIn: '7d' })
     // 5) send back token
     res.status(201).json(token)
