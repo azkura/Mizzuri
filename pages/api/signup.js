@@ -15,16 +15,19 @@ export default async (req, res) => {
       return res.status(422).send("Name must be 3-10 characters long")
     } else if (!isLength(password, { min: 6 })) {
       return res.status(422).send("Password must be at least 6 characters")
-    } else if (!isLength(email)) {
+    } else if (!isEmail(email)) {
       return res.status(422).send("email must be valid")
     }
+
     // 2) check to see if the user already exist in DB
     const user = await User.findOne({ email })
     if(user) {
       return res.status(422).send(`user already exists with ${email}`)
     }
+
     // 3) --if not, hash their password
     const hash = await bcrypt.hash(password, 10)
+
     // 4) create user
     const newUser = await new User({
       name,
@@ -32,10 +35,12 @@ export default async (req, res) => {
       password: hash
     }).save()
     console.log(newUser)
+
     // 5) create a token for the new user
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
     expiresIn: '7d' })
     // 6) send back token
+    
     res.status(201).json(token)
   } catch (error) {
     console.log(error)
