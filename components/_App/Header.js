@@ -14,10 +14,12 @@ Router.onRouteChangeError = () => Nprogress.done()
 import HomepageHeading from './HomePageHeading'
 
 const Header = ({children, user}) => {
-  console.log(user)
-  const [fixed, setFixed] = useState()
-
   const router = useRouter()
+  const isRoute = user && user.role === 'route'
+  const isAdmin = user && user.role === 'admin'
+  const isRouteOrAdmin = isRoute || isAdmin
+
+  const [fixed, setFixed] = useState()
 
   const isActive = (route) => {
     return route === router.pathname
@@ -55,7 +57,7 @@ const Header = ({children, user}) => {
               <Menu.Item active={isActive('/cart')}>Cart</Menu.Item>
             </Link>
 
-            { user && (
+            { isRouteOrAdmin && (
               <Link href="/create">
                 <Menu.Item active={isActive('/create')}>Create</Menu.Item>
               </Link>
