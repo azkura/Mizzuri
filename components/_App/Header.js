@@ -4,6 +4,7 @@ import Router, { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
 
 import { Button, Menu, Responsive, Segment, Visibility } from 'semantic-ui-react'
+import { handleLogout } from '../../utils/auth'
 
 import Nprogress from 'nprogress'
 
@@ -71,6 +72,7 @@ const Header = ({children, user}) => {
 
                 <Menu.Item position='right' >
                   <Button
+                    onClick={handleLogout}
                     inverted={!fixed} 
                     primary={fixed} 
                   > Log out
