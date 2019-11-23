@@ -55,9 +55,6 @@
     "sku": "150-37-2137",
     "mediaUrl": "https://res-3.cloudinary.com/dwpujv6in/image/upload/c_pad,dpr_2.0,f_auto,h_930,q_auto,w_930/v1/media/catalog/product/r/o/rook_modern_table_lamp.jpg"
   },
-
-
-  
   {
     "name": "Armin Basilio",
     "price": 2299.01,
@@ -100,6 +97,8 @@
     "sku": "318-91-5587",
     "mediaUrl": "https://res-5.cloudinary.com/dwpujv6in/image/upload/c_pad,dpr_2.0,f_auto,h_930,q_auto,w_930/v1/media/catalog/product/n/s/ns1_lnchbk_dk_new-standard-lounge-chair-nixon-dusk-black.jpg"
   },
+
+
   {
     "name": "Scarlet Rosemallow",
     "price": 399.57,
