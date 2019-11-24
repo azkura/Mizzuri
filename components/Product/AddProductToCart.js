@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Input } from 'semantic-ui-react'
 
@@ -12,6 +12,12 @@ function AddProductToCart({ user, productId }) {
   const [ loading, setLoading ] = useState(false)
   const [ success, setSuccess ] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    if(success) {
+      setTimeout(() => setSuccess(false), 3000)
+    }
+  }, [success])
 
   const handleAddProductToCart = async () => {
     try {
