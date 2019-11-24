@@ -6,11 +6,11 @@ import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
 
 function Cart({ products, user }) {
-  console.log(products)
+  // console.log(products)
   return (
     <Segment>
       <CartItemList user={user} products={products} />
-      <CartSummary />
+      <CartSummary products={products} />
     </Segment>
   )
 }
