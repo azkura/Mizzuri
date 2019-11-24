@@ -14,8 +14,12 @@ function AddProductToCart({ user, productId }) {
   const router = useRouter()
 
   useEffect(() => {
+    let timeout
     if(success) {
-      setTimeout(() => setSuccess(false), 3000)
+      timeout = setTimeout(() => setSuccess(false), 3000)
+    }
+    return () => {
+      clearTimeout(timeout)
     }
   }, [success])
 
