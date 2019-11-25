@@ -1,3 +1,4 @@
+import Cart from '../../models/Cart'
 import Product from '../../models/Product'
 import connectDb from '../../utils/connectDb'
 
@@ -43,12 +44,22 @@ const handlePostRequest = async (req, res) => {
   } catch (error) {
     console.error(error)
     res.status(500).send("Server error in creating product")
-    
   }
 }
 
 const handleDeleteRequest = async (req, res) => {
   const { _id } = req.query
-  await Product.findOneAndDelete({ _id })
-  res.status(204).json({})
+  try {
+    // 1) delete product by id
+    await Product.findOneAndDelete({ _id })
+    // 2) remove product from all carts referenced as 'product'
+    await Cart.updateMany(
+      { "products.product": _id },
+      { $pull: { products: { product: _id } } }
+    )
+    res.status(204).json({})
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("Error deleting product")
+  }
 }
