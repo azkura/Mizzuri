@@ -64,7 +64,7 @@ function UserPermission({ user }) {
     setAdmin(prevState => !prevState)
   }
 
-  async function handleChangePermission() {
+  async function updatePermission() {
     const url = `${baseUrl}/api/account`
     const payload = { _id: user._id, role: admin ? "admin" : "user"}
     await axios.put(url, payload)
