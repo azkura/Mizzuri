@@ -4,10 +4,10 @@ import { parseCookies } from 'nookies'
 import baseUrl from '../utils/baseUrl'
 import Axios from 'axios'
 
-function Account({ user }) {
+function Account({ user, orders }) {
   return <>
     <AccountHeader {...user} />
-    <AccountOrders />
+    <AccountOrders orders={orders} />
   </>
 }
 
