@@ -29,12 +29,14 @@ function CartItemList({ products, user, handleRemoveFromCart, success }) {
   }
 
   if(success) {
-    <Message
-      success
-      header="success" 
-      content="Your order and payment has been accepted"
-      icon="star outline"
-    />
+    return (
+      <Message
+        success
+        header="success" 
+        content="Your order and payment has been accepted"
+        icon="star outline"
+      />
+    )
   }
 
   if(products.length === 0) {

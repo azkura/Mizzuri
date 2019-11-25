@@ -6,7 +6,7 @@ import { parseCookies } from 'nookies'
 import cookie from 'js-cookie'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
-import catchErrors from '../utils/catchErrors'
+import { catchErrors } from '../utils/catchErrors'
 
 function Cart({ products, user }) {
   const [ cartProducts, setCartProducts ] = useState(products)
@@ -28,7 +28,7 @@ function Cart({ products, user }) {
     try {
       setLoading(true)
       const url = `${baseUrl}/api/checkout`
-      const token = cookie.get('token')
+      const token = cookie.get("token")
       const payload = { paymentData }
       const headers = { headers: { Authorization: token } }
       await axios.post(url, payload, headers)

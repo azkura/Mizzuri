@@ -25,10 +25,11 @@ function CartSummary({ products, handleCheckout, success }) {
         name="Mizzuri"
         amount={stripeAmount}
         image={products.length > 0 ? products[0].product.mediaUrl : ""}
-        currency="eur"
-        shippingAddress="true"
-        billingAddress="true"
-        zipCode="true"
+        currency="EUR"
+        shippingAddress={true}
+        billingAddress={true}
+        zipCode={true}
+        stripeKey="pk_test_HMVnnkkjRolsaMT15X6BF29J00SrQ6jFzP"
         token={handleCheckout}
         triggerEvent="onClick"
       >
