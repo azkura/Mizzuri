@@ -31,7 +31,7 @@ class MyApp extends App {
         const user = response.data
 
         // Admin route protected
-        const isRoute = user.role === 'route'
+        const isRoute = user.role === 'root'
         const isAdmin = user.role === 'admin'
         // if authenticated but not of role 'admin' or 'root',
         // redirect from '/create' page

@@ -8,9 +8,9 @@ import { Header, Button, Modal } from 'semantic-ui-react'
 function ProductAttributes({ description, _id, user }) {
   const [modal, setModal] = React.useState(false)
   const router = useRouter()
-  const isRoute = user && user.role === 'route'
+  const isRoot = user && user.role === 'root'
   const isAdmin = user && user.role === 'admin'
-  const isRouteOrAdmin = isRoute || isAdmin
+  const isRootOrAdmin = isRoot || isAdmin
 
   const handleDelete = async () => {
     const url = `${baseUrl}/api/product`
@@ -22,7 +22,7 @@ function ProductAttributes({ description, _id, user }) {
   return <>
     <Header as="h3">About this product</Header>
     <p>{description}</p>
-    { isRouteOrAdmin && (
+    { isRootOrAdmin && (
       <>
         <Button 
           icon="trash alternate outline"

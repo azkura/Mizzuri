@@ -16,9 +16,9 @@ import HomepageHeading from './HomePageHeading'
 
 const Header = ({children, user}) => {
   const router = useRouter()
-  const isRoute = user && user.role === 'route'
+  const isRoot = user && user.role === 'root'
   const isAdmin = user && user.role === 'admin'
-  const isRouteOrAdmin = isRoute || isAdmin
+  const isRootOrAdmin = isRoot || isAdmin
 
   const [fixed, setFixed] = useState()
 
@@ -58,7 +58,7 @@ const Header = ({children, user}) => {
               <Menu.Item active={isActive('/cart')}>Cart</Menu.Item>
             </Link>
 
-            { isRouteOrAdmin && (
+            { isRootOrAdmin && (
               <Link href="/create">
                 <Menu.Item active={isActive('/create')}>Create</Menu.Item>
               </Link>
