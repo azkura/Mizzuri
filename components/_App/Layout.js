@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { Container } from "semantic-ui-react";
+import TopNewsProducts from '../Index/TopNewsProducts'
+import Featured from '../Index/Featured'
 
 import Header from "./Header";
 import HeadContent from "./HeadContent";
@@ -17,10 +19,12 @@ function Layout({ children, user }) {
           rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
         />
-        <title>ReactReserve</title>
+        <title>Mizzuri</title>
       </Head>
       <Header user={ user } />
-      <Container text style={{ paddingTop: "1em" }}>
+      <Featured />
+      <TopNewsProducts />
+      <Container style={{ paddingTop: "2em" }}>
         {children}
       </Container>
       <Footer />

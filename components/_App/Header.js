@@ -12,8 +12,6 @@ Router.onRouteChangeStart = () => Nprogress.start()
 Router.onRouteChangeComplete = () => Nprogress.done()
 Router.onRouteChangeError = () => Nprogress.done()
 
-import HomepageHeading from './HomePageHeading'
-
 const Header = ({children, user}) => {
   const router = useRouter()
   const isRoot = user && user.role === 'root'
@@ -33,79 +31,67 @@ const Header = ({children, user}) => {
         onBottomPassed={() => setFixed(true)}
         onBottomPassedReverse={() => setFixed(false)}
       >
-        <Segment
-          inverted
-          textAlign='center'
-          style={{ 
-            minHeight: 500, 
-            padding: '1em 0em', 
-            marginBottom: '6em',
-          }}
-          vertical
+        <Menu
+          fixed={fixed ? 'top' : null}
+          // inverted={!fixed}
+          pointing={!fixed}
+          secondary={!fixed}
+          size='large'
         >
-          <Menu
-            fixed={fixed ? 'top' : null}
-            inverted={!fixed}
-            pointing={!fixed}
-            secondary={!fixed}
-            size='large'
-          >
-            <Link href="/">
-              <Menu.Item active={isActive('/')}>Mizzuri</Menu.Item>
-            </Link>
+          <Link href="/">
+            <Menu.Item active={isActive('/')}>Mizzuri</Menu.Item>
+          </Link>
 
-            <Link href="/cart">
-              <Menu.Item active={isActive('/cart')}>Cart</Menu.Item>
-            </Link>
+          <Link href="/cart">
+            <Menu.Item active={isActive('/cart')}>Cart</Menu.Item>
+          </Link>
 
-            { isRootOrAdmin && (
-              <Link href="/create">
-                <Menu.Item active={isActive('/create')}>Create</Menu.Item>
+          { isRootOrAdmin && (
+            <Link href="/create">
+              <Menu.Item active={isActive('/create')}>Create</Menu.Item>
+            </Link>
+          )}
+
+          {user ? (
+            <>
+              <Link href="/account">
+                <Menu.Item  active={isActive('/account')}>Account</Menu.Item>
               </Link>
-            )}
 
-            {user ? (
-              <>
-                <Link href="/account">
-                  <Menu.Item  active={isActive('/account')}>Account</Menu.Item>
+              <Menu.Item position='right' >
+                <Button
+                  onClick={handleLogout}
+                  // inverted={!fixed} 
+                  primary={fixed} 
+                > Log out
+                </Button>
+              </Menu.Item>
+            </>
+          ) : (
+            <>
+              <Menu.Item position='right'>
+                <Link href="/login">
+                  <Button
+                    active={isActive('/login')} 
+                    // inverted={!fixed}
+                    primary={fixed} 
+                  > Log in
+                  </Button>
                 </Link>
 
-                <Menu.Item position='right' >
-                  <Button
-                    onClick={handleLogout}
-                    inverted={!fixed} 
+                <Link href="/signup">
+                  <Button 
+                    active={isActive('/signup')}
+                    // inverted={!fixed} 
                     primary={fixed} 
-                  > Log out
+                    style={{ marginLeft: '0.5em' }}
+                  > Sign up
                   </Button>
-                </Menu.Item>
-              </>
-            ) : (
-              <>
-                <Menu.Item position='right'>
-                  <Link href="/login">
-                    <Button
-                      active={isActive('/login')} 
-                      inverted={!fixed}
-                      primary={fixed} 
-                    > Log in
-                    </Button>
-                  </Link>
-
-                  <Link href="/signup">
-                    <Button 
-                      active={isActive('/signup')}
-                      inverted={!fixed} 
-                      primary={fixed} 
-                      style={{ marginLeft: '0.5em' }}
-                    > Sign up
-                    </Button>
-                  </Link>
-                </Menu.Item>
-              </>
-            )} 
-          </Menu>
-          <HomepageHeading />
-        </Segment>
+                </Link>
+              </Menu.Item>
+            </>
+          )} 
+        </Menu>
       </Visibility>
         {children}
     </Responsive>
